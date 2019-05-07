@@ -7,12 +7,15 @@ public class Lector {
     private String letraSiguiente;
     private ArrayList<String> listaLetrasSucesoras;
     public ArrayList<ArrayList<String>> matrizResultados;
+    private int cantidadSucesores;
 
     public Lector(){
 
         letraLimite = 1;
         letraSiguiente = null;
         listaLetrasSucesoras = new ArrayList<>();
+        cantidadSucesores= 0;
+        matrizResultados = new ArrayList<ArrayList<String>>();
 
     }
 
@@ -26,6 +29,7 @@ public class Lector {
             for (int n = 0; n < palabraDeCorpus.length(); n++) {
 
                 String prefijoActual = palabraDeCorpus.substring(letraInicio, letraLimite);
+                cantidadSucesores = 0;
 
                 for (int j = 0; j < listaCorpus.size(); j++) {
 
@@ -35,11 +39,17 @@ public class Lector {
                         if (letraSiguiente != null && !listaLetrasSucesoras.contains(letraSiguiente)){
 
                             listaLetrasSucesoras.add(letraSiguiente);
+                            cantidadSucesores++;
                         }
                     }
                 }
 
                 //agrega datos a la matriz
+                ArrayList<String>sublistaDeTerminosyCantidades = new ArrayList<>();
+                sublistaDeTerminosyCantidades.add(prefijoActual);
+                sublistaDeTerminosyCantidades.add(Integer.toString(cantidadSucesores));
+                matrizResultados.add(sublistaDeTerminosyCantidades);
+
                 listaLetrasSucesoras.clear();
                 letraLimite++;
             }
