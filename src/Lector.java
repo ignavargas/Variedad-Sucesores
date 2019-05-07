@@ -6,7 +6,7 @@ public class Lector {
     private static int letraInicio = 0;
     private String letraSiguiente;
     private ArrayList<String> listaLetrasSucesoras;
-    public ArrayList<ArrayList<String>> matrizResultados;
+    private ArrayList<ArrayList<String>> matrizResultados;
     private int cantidadSucesores;
 
     public Lector(){
@@ -27,16 +27,17 @@ public class Lector {
             palabraDeCorpus = listaCorpus.get(i);
 
             for (int n = 0; n < palabraDeCorpus.length(); n++) {
-
-                String prefijoActual = palabraDeCorpus.substring(letraInicio, letraLimite);
+                String prefijoActual;
+                prefijoActual = obtenerSubHilera(palabraDeCorpus, letraInicio, letraLimite);
                 cantidadSucesores = 0;
 
                 for (int j = 0; j < listaCorpus.size(); j++) {
 
                     if (listaCorpus.get(j).startsWith(prefijoActual)){
 
-                        letraSiguiente = listaCorpus.get(j).substring(letraLimite, letraLimite+1);
-                        if (letraSiguiente != null && !listaLetrasSucesoras.contains(letraSiguiente)){
+                        letraSiguiente = obtenerSubHilera(listaCorpus.get(j), letraLimite, letraLimite+1);
+
+                        if (!listaLetrasSucesoras.contains(letraSiguiente)){
 
                             listaLetrasSucesoras.add(letraSiguiente);
                             cantidadSucesores++;
@@ -53,6 +54,34 @@ public class Lector {
                 listaLetrasSucesoras.clear();
                 letraLimite++;
             }
+            letraLimite = 0;
         }
     }
+
+    private String obtenerSubHilera(String hileraOriginal, int indiceInicio, int indiceFinal){
+
+        if (hileraOriginal.length()>letraLimite) {
+            return hileraOriginal.substring(indiceInicio, indiceFinal);
+        }else {
+
+            return hileraOriginal.substring(letraInicio);
+        }
+
+    }
+
+    public void mostrarResultadosMatriz(){
+
+        for (int out = 0; out < matrizResultados.size(); out++) {
+
+            for (int p = 0; p < matrizResultados.get(out).size(); p++) {
+
+                System.out.println(matrizResultados.get(out).get(p));
+                System.out.println();
+
+            }
+        }
+    }
+
+
+
 }
