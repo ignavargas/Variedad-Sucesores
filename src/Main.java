@@ -1,22 +1,14 @@
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        System.out.println("Hello World!");
+        Enlistador enlist = new Enlistador("prueba.txt");
 
         ArrayList<String> corpusPrueba;
-        corpusPrueba = new ArrayList<>();
-        corpusPrueba.add("casa");
-        corpusPrueba.add("casita");
-        corpusPrueba.add("casas");
-        corpusPrueba.add("cabeza");
-        corpusPrueba.add("casamiento");
-        corpusPrueba.add("caza");
-        corpusPrueba.add("cazador");
-        corpusPrueba.add("capas");
-        corpusPrueba.add("casucha");
+        corpusPrueba = enlist.enlistarPalabras();
 
         Lector lector = new Lector();
         lector.Lematizador(corpusPrueba);
